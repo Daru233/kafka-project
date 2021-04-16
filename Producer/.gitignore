@@ -1,0 +1,7 @@
+/netflix_titles_data
+.idea/uiDesigner.xml
+
+**/resources/**.properties
+**/resources/**.csv
+
+/target
