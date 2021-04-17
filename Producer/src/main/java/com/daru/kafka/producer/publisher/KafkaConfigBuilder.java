@@ -1,16 +1,32 @@
-package com.daru.kafka.producer;
+package com.daru.kafka.producer.publisher;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class KafkaConfigBuilder {
 
-    Properties properties;
-    String bootStrapServer;
+    private Properties properties;
+    private String bootStrapServer;
 
-    public KafkaConfigBuilder(String bootstrapServer){
-        this.bootStrapServer = bootstrapServer;
+    public KafkaConfigBuilder(){
+        loadProperties();
+        properties = new Properties();
+    }
+
+    private void loadProperties() {
+        try (InputStream input = new FileInputStream("src/main/resources/app.properties")) {
+            Properties prop = new Properties();
+            prop.load(input);
+            bootStrapServer = prop.getProperty("bootStrapServer");
+            System.out.println(bootStrapServer);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public Properties getProperties(){

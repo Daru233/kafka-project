@@ -8,14 +8,15 @@ import java.util.Scanner;
 
 public class DataLoader {
 
-    String csvPackagePath;
-    String csvCompletePath;
-    List<String> records = new ArrayList<>();
+    private String csvPackagePath;
+    private String csvCompletePath;
+    private List<String> records = new ArrayList<>();
 
     DataLoader(){
         loadProperties();
         getCompleteCsvPath();
         loadCsvData();
+        removeHeaders();
     }
 
     private void loadProperties() {
@@ -38,13 +39,17 @@ public class DataLoader {
         try {
             Scanner scanner = new Scanner(new File(csvCompletePath));
             scanner.useDelimiter("\\n");
-            for(int i = 0; i <= 5000; i++) {
+            for(int i = 0; i <= 100; i++) {
                 records.add(scanner.next());
             }
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    private void removeHeaders() {
+        records.remove(0);
     }
 
     public List<String> getRecords(){
