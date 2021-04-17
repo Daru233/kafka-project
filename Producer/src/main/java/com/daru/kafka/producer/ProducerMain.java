@@ -1,6 +1,7 @@
 package com.daru.kafka.producer;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 
 public class ProducerMain {
 
@@ -8,7 +9,11 @@ public class ProducerMain {
 
         // load data to publish
         DataLoader data = new DataLoader();
-        System.out.println(data.getCsvPath());
+        List<String> records = data.getRecords();
+
+        for(String record : records){
+            System.out.println(record);
+        }
 
 //        List<String> records = new ArrayList<>();
 //
